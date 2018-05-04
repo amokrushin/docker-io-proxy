@@ -14,11 +14,16 @@ version: '3.6'
 
 services:
   docker-io-proxy:
-    build: https://github.com/schors/tgdante2.git
+    build: https://github.com/amokrushin/docker-io-proxy.git
     ports:
       - 1080:1080
     volumes:
       - ./data/docker-io-proxy:/etc
+    environment:
+      - HOST=example.com
+      - PORT=1080
+    logging:
+      driver: none
     restart: unless-stopped
 ```
 

@@ -33,6 +33,8 @@ dc run --rm docker-io-proxy /scripts/list
 dc run --rm docker-io-proxy /scripts/del user
 ```
 
+> Note: `dc` is alias for `docker-compose`
+
 
 Links
 -----

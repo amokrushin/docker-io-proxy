@@ -41,6 +41,34 @@ dc run --rm docker-io-proxy /scripts/del user
 > Note: `dc` is alias for `docker-compose`
 
 
+Docker configuration
+---------------------------
+
+<https://docs.docker.com/config/daemon/systemd/#httphttps-proxy>
+
+> The Docker daemon uses the HTTP_PROXY, HTTPS_PROXY, and NO_PROXY environmental variables in its start-up environment 
+> to configure HTTP or HTTPS proxy behavior. You cannot configure these environment variables using the daemon.json file.
+
+Create a file called `/etc/systemd/system/docker.service.d/https-proxy.conf` that adds the `HTTPS_PROXY` environment variable:
+
+```
+[Service]
+Environment="HTTPS_PROXY=socks5://[USER]:[PASSWORD]@[HOST]:[PORT]/" "NO_PROXY=localhost,127.0.0.1"
+```
+
+Flush changes and restart Docker:
+
+```
+sudo systemctl daemon-reload \
+&& sudo systemctl restart docker
+```
+
+Test:
+```
+docker pull hello-world
+```
+
+
 Links
 -----
 
